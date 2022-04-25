@@ -2,9 +2,10 @@ import React from "react"
 import { Col, Row, Button, Card } from "react-bootstrap"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { ReactSortable } from "react-sortablejs"
 import TaskCardBoard from "./TaskCardBoard"
 
-function BodyBoard({ isEdit=false, data=[] }) {
+function BodyBoard({ isEdit=false, data=[], setData }) {
     return(
         <Row>
             {data.map((item, idx) => (
@@ -22,11 +23,29 @@ function BodyBoard({ isEdit=false, data=[] }) {
                             </div>
                             <small className="text-muted">{item.description}</small>
                         </Card.Header>
-                        <Card.Body>
+                        <ReactSortable 
+                            tag={Card.Body}
+                            group="task"
+                            handle="#move-task"
+                            list={item.data}
+                            setList={(currentList) => {
+                                setData((sourceList) => {
+                                    const tempList = [...sourceList];
+                                    const _blockIndex = [...[idx]];
+                                    const lastIndex = _blockIndex.pop();
+                                    const lastArr = _blockIndex.reduce(
+                                      (arr, i) => arr[i]["data"],
+                                      tempList
+                                    );
+                                    lastArr[lastIndex]["data"] = currentList;
+                                    return tempList;
+                                })
+                            }}
+                        >
                             {item.data.map((task) => (
                                 <TaskCardBoard key={task.id} editor={isEdit} {...task} />
                             ))}
-                        </Card.Body>
+                        </ReactSortable>
                     </Card>
     
                 </Col>

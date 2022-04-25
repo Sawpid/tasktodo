@@ -12,10 +12,10 @@ function TaskCardBoard({editor = false, id = 0, text = "", progress = 0}) {
                     <Button variant="outline-secondary">
                         #{id}
                     </Button>
-                    <Button variant="outline-secondary">
+                    <Button variant="outline-secondary" id="delete-task">
                         <FontAwesomeIcon icon={faTrash}/>
                     </Button>
-                    <Button variant="outline-secondary">
+                    <Button variant="outline-secondary" id="move-task">
                         <FontAwesomeIcon icon={faArrowsUpDownLeftRight}/>
                     </Button>
                 </ButtonGroup>

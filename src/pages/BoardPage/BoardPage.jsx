@@ -11,7 +11,7 @@ function BoardPage() {
         editBoard, 
         toggleEditBoard,
         boardData, 
-        setBoardData, 
+        setBoardData,
     } = useBoard();
 
     return(

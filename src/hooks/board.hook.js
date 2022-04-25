@@ -13,33 +13,10 @@ export const useBoard = () => {
 
     const toggleEditBoard = () => setEditBoard(!editBoard);
 
-//     const handleChange = e => {
-//       console.log( e.target.name);
-//       const { name, value } = e.target;
-//       setState(prevState => ({
-//           ...prevState,
-//           [name]: value
-//       }));
-//   };
-
-    // const currentList = (sourceList) => {
-    //   setBoardData((sourceList) => {
-    //     const tempList = [...sourceList];
-    //     const _blockIndex = [...[idx]];
-    //     const lastIndex = _blockIndex.pop();
-    //     const lastArr = _blockIndex.reduce(
-    //       (arr, i) => arr[i]["data"],
-    //       tempList
-    //     );
-    //     lastArr[lastIndex]["data"] = currentList;
-    //     return tempList;
-    //   });
-    // }
 
   return { 
     boardData, 
-    setBoardData, 
-    // handleChange,
+    setBoardData,
     editBoard, 
     toggleEditBoard
     }
