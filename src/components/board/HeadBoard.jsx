@@ -1,7 +1,7 @@
 import React from "react"
 import { Col, Row, ButtonGroup, Button } from "react-bootstrap";
 
-function HeadBoard() {
+function HeadBoard({setEdit, isEdit=false}) {
     return (
         <Row>
             <Col className="col-12" sm={8}>
@@ -16,7 +16,10 @@ function HeadBoard() {
                         Сохранить
                         <sup className="small">13</sup>
                     </Button>
-                    <Button variant="outline-secondary" className="shadow-btn">Редактировать</Button>
+                    <Button onClick={setEdit} className="shadow-btn"
+                    variant={(isEdit)?"secondary":"outline-secondary"}>
+                        Редактировать
+                    </Button>
                 </ButtonGroup>
             </Col>
         </Row>
