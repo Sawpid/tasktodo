@@ -1,54 +1,48 @@
 import React from "react"
-import { Col, Row, Button, Card } from "react-bootstrap"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { ReactSortable } from "react-sortablejs"
+import { Row } from "react-bootstrap"
+import {useBoard} from "../../hooks/board.hook"
 import TaskCardBoard from "./TaskCardBoard"
+import ColCardBoard from "./ColCardBoard"
 
-function BodyBoard({ isEdit=false, data=[], setData }) {
+function BodyBoard({ isEdit=false }) {
+
+    const {
+        addTask,
+        moveTask,
+        deleteTask, 
+        updateTask,
+        boardData,
+    } = useBoard();
+
+    console.log(boardData)
+
     return(
         <Row>
-            {data.map((item, idx) => (
-                <Col key={item.id} className="col-12" lg={3}>
+            {boardData.map((item, colIdx) => (
 
-                    <Card>
-                        <Card.Header as="h5" >
-                            <div className="d-flex">
-                                <Card.Title>{item.name}</Card.Title>
-                            {item.type == 1 &&
-                                <Button className="btn-sm ms-auto shadow-btn rounded-circle" variant="success">
-                                    <FontAwesomeIcon icon={faPlus} />
-                                </Button>
-                                }
-                            </div>
-                            <small className="text-muted">{item.description}</small>
-                        </Card.Header>
-                        <ReactSortable 
-                            tag={Card.Body}
-                            group="task"
-                            handle="#move-task"
-                            list={item.data}
-                            setList={(currentList) => {
-                                setData((sourceList) => {
-                                    const tempList = [...sourceList];
-                                    const _blockIndex = [...[idx]];
-                                    const lastIndex = _blockIndex.pop();
-                                    const lastArr = _blockIndex.reduce(
-                                      (arr, i) => arr[i]["data"],
-                                      tempList
-                                    );
-                                    lastArr[lastIndex]["data"] = currentList;
-                                    return tempList;
-                                })
-                            }}
-                        >
-                            {item.data.map((task) => (
-                                <TaskCardBoard key={task.id} editor={isEdit} {...task} />
-                            ))}
-                        </ReactSortable>
-                    </Card>
-    
-                </Col>
+                <ColCardBoard
+                    key={item.id}
+                    editor={isEdit}
+                    idx={colIdx}
+                    data={item}
+                    setData={moveTask}
+                    addTask={addTask}
+                >
+                    {item.data.map((task, taskIdx) => (
+                        
+                        <TaskCardBoard 
+                            key={task.id} 
+                            editor={isEdit} 
+                            idx={[colIdx, taskIdx]} 
+                            data={task}
+                            updateTask={updateTask}
+                            deleteTask={deleteTask}
+                        />
+
+                    ))}
+
+                </ColCardBoard>
+
             ))}
         </Row>
     )

@@ -7,12 +7,7 @@ import {useBoard} from "../../hooks/board.hook"
 import "./BoardStyle.css"
 
 function BoardPage() {
-    const {
-        editBoard, 
-        toggleEditBoard,
-        boardData, 
-        setBoardData,
-    } = useBoard();
+    const { editBoard, toggleEditBoard } = useBoard();
 
     return(
         <>
@@ -27,8 +22,6 @@ function BoardPage() {
 
                 <BodyBoard 
                     isEdit={editBoard}
-                    data={boardData} 
-                    setData={setBoardData} 
                 />
 
             </Container>

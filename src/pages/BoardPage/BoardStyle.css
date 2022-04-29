@@ -38,3 +38,9 @@ code {
     -webkit-box-shadow: 0 4px 10px 0 rgba(0, 0, 0, .2), 0 4px 20px 0 rgba(0, 0, 0, .1);
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, .2), 0 4px 20px 0 rgba(0, 0, 0, .1);
 }
+
+.card {
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 2px 3px;
+    border-radius: .4rem;
+    min-height: 200px;
+}

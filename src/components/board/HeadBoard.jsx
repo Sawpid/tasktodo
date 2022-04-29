@@ -1,5 +1,6 @@
 import React from "react"
 import { Col, Row, ButtonGroup, Button } from "react-bootstrap";
+import {useBoard} from "../../hooks/board.hook"
 
 function HeadBoard({setEdit, isEdit=false}) {
     return (

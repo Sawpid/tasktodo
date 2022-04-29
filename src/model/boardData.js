@@ -1,6 +1,5 @@
 
-let colId = 1;
-let taskId = 1;
+let colId = 0;
 
 // export const createId = () => {colId++; taskId++;}
 
@@ -10,13 +9,7 @@ export const devBoardData = [
         "name": "Задачи",
         "description": "Поставленные задачи",
         "type": 1,
-        "data": [
-            {
-                "id": taskId++,
-                "text": "New",
-                "progress": 90
-            }
-        ]
+        "data": []
     },
     {
         "id": colId++,
@@ -37,22 +30,14 @@ export const devBoardData = [
         "name": "Завершено",
         "description": "Завершенные задачи",
         "type": 0,
-        "data": [
-            {
-                "id": taskId++,
-                "text": "New",
-                "progress": 90
-            },
-            {
-                "id": taskId++,
-                "text": "New",
-                "progress": 90
-            },
-            {
-                "id": taskId++,
-                "text": "New",
-                "progress": 90
-            }
-        ]
+        "data": []
     },
-];
+]
+
+export const defaultTaskData = (id) => {
+    return {
+        "id": id,
+        "text": "",
+        "progress": 0
+    }
+}
