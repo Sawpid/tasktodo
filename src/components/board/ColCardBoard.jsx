@@ -6,9 +6,9 @@ import { ReactSortable } from "react-sortablejs"
 
 function ColCardBoard({children, editor, idx, data, setData, addTask }) {
 
-    // console.log(data)
     return (
-        <Col className="col-12" lg={3}>
+    
+        <Col className="col-12 mb-3" lg={3}>
 
             <Card>
 
@@ -16,7 +16,7 @@ function ColCardBoard({children, editor, idx, data, setData, addTask }) {
 
                     <div className="d-flex">
                         <Card.Title>{data.name}</Card.Title>
-                    {(data.type == 1 && editor) &&
+                    {(data.type === 1 && editor) &&
                         <Button 
                             onClick={() => {addTask(idx)}} 
                             className="btn-sm ms-auto shadow-btn rounded-circle" 
@@ -40,7 +40,12 @@ function ColCardBoard({children, editor, idx, data, setData, addTask }) {
                         setData(currentList, idx)
                     }}
                 >
-                    {children}
+                    {children.length === 0 ?
+                        <div className="empty-content d-flex justify-content-center align-items-center">
+                            <h3>Пусто</h3>
+                        </div>
+                    : children
+                    }
                 </ReactSortable>
             </Card>
     

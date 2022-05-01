@@ -14,7 +14,6 @@ function BodyBoard({ isEdit=false }) {
         boardData,
     } = useBoard();
 
-    console.log(boardData)
 
     return(
         <Row>

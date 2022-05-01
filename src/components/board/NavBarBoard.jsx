@@ -1,5 +1,6 @@
 import React from "react"
-import { Navbar, Nav, Button, Container } from "react-bootstrap"
+import { Link } from "react-router-dom";
+import { Navbar, Nav, Container } from "react-bootstrap"
 import ConfigBoard from "./ConfigBoard"
 
 function NavBarBoard() {
@@ -10,7 +11,7 @@ function NavBarBoard() {
                 <Nav className="me-auto">
                     <ConfigBoard/>
                 </Nav>
-                <Button variant="warning" className="d-flex shadow-btn rounded-pill">Войти</Button>
+                <Link className="btn btn-warning d-flex shadow-btn rounded-pill" to="/auth/signin">Войти</Link>
             </Container>
         </Navbar>
     )

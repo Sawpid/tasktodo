@@ -5,16 +5,20 @@ import { faArrowsUpDownLeftRight, faTrash } from '@fortawesome/free-solid-svg-ic
 
 function TaskCardBoard({editor, idx, data, updateTask, deleteTask}) {
 
-    const [ colIdx, taskIdx ] = idx;
+    const [ colIdx, _taskIdx ] = idx;
 
     if (editor) {
         return(
             <Card className="mb-3">
-                <ButtonGroup size="sm" className="btn-rtop" aria-label="Basic example">
+                <ButtonGroup size="sm" className="btn-rtop">
                     <Button variant="outline-secondary">
                         #{data.id}
                     </Button>
-                    <Button onClick={() => {deleteTask(colIdx, data.id)}} variant="outline-secondary" id="delete-task">
+                    <Button 
+                        onClick={() => {deleteTask(colIdx, data.id)}} 
+                        variant="outline-secondary" 
+                        id="delete-task"
+                    >
                         <FontAwesomeIcon icon={faTrash}  />
                     </Button>
                     <Button variant="outline-secondary" id="move-task">
@@ -40,7 +44,7 @@ function TaskCardBoard({editor, idx, data, updateTask, deleteTask}) {
     }else{
         return(
             <Card className="mb-3">
-                <Card.Body className="mt-3 mb-0">
+                <Card.Body className="mb-0">
                     <Card.Subtitle className="mb-2 text-muted" >
                         {data.text}
                     </Card.Subtitle >
