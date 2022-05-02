@@ -48,5 +48,15 @@ code {
     height: 100px;
     border: 2px dotted #80808085;
     border-radius: .5rem;
-    color: #808080b8;
+    color: #80808037;
+}
+
+.fa-1xm {
+    font-size: 1.5em;
+  }
+
+.task-badge{
+    margin: .1rem;
+    text-shadow: 0px 0px 5px black;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .2);
 }

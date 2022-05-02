@@ -39,10 +39,11 @@ function ColCardBoard({children, editor, idx, data, setData, addTask }) {
                     setList={(currentList) => {
                         setData(currentList, idx)
                     }}
+                    onAdd={(e, l, i) => console.log(e.to)}
                 >
                     {children.length === 0 ?
                         <div className="empty-content d-flex justify-content-center align-items-center">
-                            <h3>Пусто</h3>
+                            <h4>Ничего Нет</h4>
                         </div>
                     : children
                     }

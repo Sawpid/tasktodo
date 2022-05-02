@@ -44,6 +44,7 @@ export const useBoard = () => {
       console.log("update");
       setBoardData((sourceList) => {
         const tempList = [...sourceList];
+        const col = tempList.find(elem => elem.id === id)
         const task = tempList[idx].data.find(elem => elem.id === id)
         task[e.target.name] = e.target.value;
         return tempList;
@@ -60,6 +61,7 @@ export const useBoard = () => {
             (arr, i) => arr[i]["data"],
             tempList
           );
+          currentList.map(el => el.status = boardData[idx].id)
           lastArr[lastIndex]["data"] = currentList;
           return tempList;
       })

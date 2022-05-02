@@ -1,7 +1,7 @@
 import React from "react"
 import { Row } from "react-bootstrap"
 import {useBoard} from "../../hooks/board.hook"
-import TaskCardBoard from "./TaskCardBoard"
+import CardTask from "../task/CardTask"
 import ColCardBoard from "./ColCardBoard"
 
 function BodyBoard({ isEdit=false }) {
@@ -29,9 +29,9 @@ function BodyBoard({ isEdit=false }) {
                 >
                     {item.data.map((task, taskIdx) => (
                         
-                        <TaskCardBoard 
+                        <CardTask
                             key={task.id} 
-                            editor={isEdit} 
+                            readonly={isEdit} 
                             idx={[colIdx, taskIdx]} 
                             data={task}
                             updateTask={updateTask}
