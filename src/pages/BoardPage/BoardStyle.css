@@ -100,15 +100,26 @@ code {
     position: relative;
 }
 
-.nav-pills{
-    background-color: #ffffff82;
+.nav-lg, .nav-sm{
+    background-color: #ffffff80;
     border-radius: 5rem;
 }
-.nav-pills .nav-link {
+.nav-lg .nav-link {
     border-radius: 5rem;
     font-size: larger;
     font-weight: bold;
     color: black;
+}
+
+.nav-sm .nav-link {
+    border-radius: 5rem;
+    font-size: .9rem;
+    font-weight: bold;
+    color: black;
+}
+
+.nav-sm .nav-link.active{
+    background-color: #5c636a!important;
 }
 
 .btn-first-pill{

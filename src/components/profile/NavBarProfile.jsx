@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faPlusCircle, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 import NavContextUser from "./UserContextMenu";
 import SearchContextMenu from "../explore/SearchContextMenu";
+import CreateBoardModal from "../board/CreateBoardModal";
 
 function NavBarProfile() {
     return (
@@ -24,9 +25,11 @@ function NavBarProfile() {
                 {true
                 ?
                 <>
-                    <Button variant="link" className="p-0 mx-3">
-                        <FontAwesomeIcon style={{color: "#0043a5"}} size="2x" icon={faPlusCircle}/>
-                    </Button>
+                    <CreateBoardModal>
+                        <Button variant="link" className="p-0 mx-3">
+                            <FontAwesomeIcon style={{color: "#0043a5"}} size="2x" icon={faPlusCircle}/>
+                        </Button>
+                    </CreateBoardModal>
                     <NavContextUser/>
                 </>
                 :<Link className="btn btn-warning d-flex shadow-btn rounded-pill" to="/auth/signin">Войти</Link>}

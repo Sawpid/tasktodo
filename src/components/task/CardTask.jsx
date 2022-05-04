@@ -2,7 +2,7 @@ import React from "react"
 import { Card, Button, Badge, ButtonGroup, Form, FloatingLabel, Stack, ProgressBar } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowsUpDownLeftRight, faUserCircle } from '@fortawesome/free-solid-svg-icons'
-import TaskDetailBoard from "./DetailTask.jsx"
+import TaskDetailBoard from "./DetailTaskModal.jsx"
 import { baseTags, sampleMembers } from "../../model/boardData"
 
 function CardTask({readonly, idx, data, updateTask, deleteTask}) {

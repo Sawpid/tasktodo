@@ -2,6 +2,8 @@
 let colId = 0;
 let tagId = 0;
 let memberId = 0;
+let accessId = 0;
+let templateId = 0;
 
 // export const createId = () => {colId++; taskId++;}
 
@@ -36,6 +38,10 @@ export const devBoardData = [
     },
 ]
 
+export const headBoard = (id) => {
+
+}
+
 export const defaultTaskData = (id) => {
     return {
         "id": id,
@@ -50,6 +56,17 @@ export const defaultTaskData = (id) => {
         "update_date":getСurrentDate(),
     }
 }
+
+export const templateBoard = [
+    { value: templateId++, label: 'Доска разработчика (В процессе, Тестирование, Завершено)', board: 1 },
+];
+
+
+export const viewAccessLevel = [
+    { value: accessId++, label: 'Публичный', description: 'Разрешить всем пользователям просматривать ваш проект' },
+    { value: accessId++, label: 'По ссылке', description: 'Проект не будет отображаться в поиске и вашем профиле' },
+    { value: accessId++, label: 'Приватный', description: 'Только участники вашего проекта могут просматривать ваш проект' },
+];
 
 export const baseTags = [
     { value: tagId++, label: 'Срочно', color: 'warning' },

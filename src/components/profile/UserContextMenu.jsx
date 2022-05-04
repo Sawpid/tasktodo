@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faGear, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
@@ -12,16 +13,16 @@ function UserContextMenu() {
 
             <Dropdown.Menu align="end" className="pt-0 mx-0 rounded-3 shadow overflow-hidden">
                 <Dropdown.Header>Вы вошли как @{"user"}</Dropdown.Header>
-                <Dropdown.Item href="#/action-1">
+                <Dropdown.Item as={Link} to="/user">
                     <FontAwesomeIcon className="me-3" icon={faUser}/>
                     Профиль
                 </Dropdown.Item>
-                <Dropdown.Item href="#/action-2">
+                <Dropdown.Item as={Link} to="/user/settings">
                     <FontAwesomeIcon className="me-3" icon={faGear}/>
                     Настройки
                 </Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item eventKey="4">
+                <Dropdown.Item as={Link} to="/">
                     <FontAwesomeIcon className="me-3" icon={faArrowRightFromBracket}/>
                     Выйти
                 </Dropdown.Item>

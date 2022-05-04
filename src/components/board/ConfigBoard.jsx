@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Offcanvas, Nav, FloatingLabel, Form, ButtonGroup, ListGroup, Badge } from "react-bootstrap";
+import { ToggleButtonGroup, ToggleButton, Offcanvas, Nav, FloatingLabel, Form, ButtonGroup, ListGroup, Badge, Button } from "react-bootstrap";
 import {useBoard} from "../../hooks/board.hook"
 
 function ConfigBoard() {
@@ -16,11 +16,12 @@ function ConfigBoard() {
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     <FloatingLabel label="Название" className="mb-3">
-                        <Form.Control type="text" placeholder="Название" />
+                        <Form.Control type="text" placeholder="Название" disabled/>
                     </FloatingLabel>
                     <FloatingLabel label="Описание" className="mb-3">
                         <Form.Control as="textarea" placeholder="Описание" />
                     </FloatingLabel>
+
                     <ButtonGroup className="w-100 mb-3" aria-label="access level">
                         <input type="radio" className="btn-check" name="level-access" id="access-public" autoComplete="off" defaultChecked/>
                         <label className="btn btn-outline-primary" htmlFor="access-public">Публичный</label>
@@ -29,7 +30,7 @@ function ConfigBoard() {
                         <input type="radio" className="btn-check" name="level-access" id="access-private" autoComplete="off"/>
                         <label className="btn btn-outline-primary" htmlFor="access-private">Приватный</label>
                     </ButtonGroup>
-                    <ListGroup as="ol" numbered>
+                    <ListGroup as="ol" numbered className="mb-3">
                         {boardData.map((item) => (
                             <ListGroup.Item
                                 as="li" key={item.id}
@@ -47,6 +48,15 @@ function ConfigBoard() {
                             </ListGroup.Item>
                         ))}
                     </ListGroup>
+                    <Button variant="primary" className="w-100 mb-3">
+                        Редактор меток 
+                    </Button>
+                    <Button variant="primary" className="w-100 mb-3">
+                        Управление участниками
+                    </Button>
+                    <Button variant="danger" className="w-100 mb-3">
+                        Удалить проект
+                    </Button>
                 </Offcanvas.Body>
             </Offcanvas>
         </>

@@ -1,8 +1,9 @@
 import React from "react"
+import { Link } from "react-router-dom";
 import { Container, Row, Col, Card, ListGroup, ListGroupItem, Button, Stack, Badge, Nav, ButtonGroup, Dropdown, ProgressBar, DropdownButton, FormControl } from "react-bootstrap"
 import NavBarProfile from "../../components/profile/NavBarProfile";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLandmark, faGraduationCap, faEnvelope, faArrowDownShortWide, faArrowUpShortWide, faStar } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faUserCheck, faLightbulb, faLandmark, faGraduationCap, faEnvelope, faArrowDownShortWide, faArrowUpShortWide, faStar } from '@fortawesome/free-solid-svg-icons'
 
 function UserProfilePage() {
 
@@ -43,13 +44,17 @@ function UserProfilePage() {
                                 </ListGroupItem>
                             </ListGroup>
                             <Card.Body>
-                                <Card.Text>Навыки</Card.Text>
-                                <Badge className="m-1" bg="primary">JavaScript</Badge> 
-                                <Badge className="m-1" bg="primary">JavaScript</Badge> 
-                                <Badge className="m-1" bg="primary">JavaScript</Badge> 
-                                <Badge className="m-1" bg="primary">JavaScript</Badge> 
-                                <Badge className="m-1" bg="primary">JavaScript</Badge> 
-                                <Badge className="m-1" bg="primary">JavaScript</Badge> 
+                                <Card.Text>
+                                    <FontAwesomeIcon className="me-2" icon={faLightbulb}/>
+                                    Навыки
+                                </Card.Text>
+                                <Badge className="ms-1" bg="primary">JavaScript</Badge> 
+                                <Badge className="ms-1" bg="primary">JavaScript</Badge> 
+                                <Badge className="ms-1" bg="primary">JavaScript</Badge> 
+                                <Badge className="ms-1" bg="primary">JavaScript</Badge> 
+                                <Badge className="ms-1" bg="primary">JavaScript</Badge> 
+                                <Badge className="ms-1" bg="primary">JavaScript</Badge> 
+                                <Badge className="ms-1" bg="primary">JavaScript</Badge> 
                             </Card.Body>
                             <Card.Footer>
                                 <Stack gap={2} direction="horizontal" >
@@ -60,19 +65,36 @@ function UserProfilePage() {
                         </Card>
                     </Col>
                     <Col lg={8} >
-                        <Nav fill variant="pills" className="nav-pills mb-3" defaultActiveKey="#">
+                        <Nav fill variant="pills" className="nav-lg mb-3" defaultActiveKey="project">
                             <Nav.Item>
-                                <Nav.Link href="#">Проекты</Nav.Link>
+                                <Nav.Link as={Link} to="project" href="project">Проекты</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="link-1">Группа</Nav.Link>
+                                <Nav.Link as={Link} to="groups" href="groups">Группы</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="link-2">Настройки</Nav.Link>
+                                <Nav.Link as={Link} to="settings" href="settings">Настройки</Nav.Link>
                             </Nav.Item>
                         </Nav>
                         <div>
-                            <Stack gap={2} direction="horizontal" className="mb-3" >
+                            <Stack gap={2} direction="horizontal" className="mb-3">
+                                <Nav fill variant="pills" className="nav-sm" defaultActiveKey="project">
+                                    <Nav.Item>
+                                        <Nav.Link as={Link} to="project" href="project">
+                                            <FontAwesomeIcon  icon={faHome}/>
+                                        </Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link as={Link} to="groups" href="groups">
+                                            <FontAwesomeIcon  icon={faUserCheck}/>
+                                        </Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link as={Link} to="settings" href="settings">
+                                            <FontAwesomeIcon  icon={faStar}/>
+                                        </Nav.Link>
+                                    </Nav.Item>
+                                </Nav>
                                 <ButtonGroup className="ms-auto">
                                     <DropdownButton title="Последнее обновление" bsPrefix="dropdown-toggle btn btn-secondary btn-first-pill" >
                                         <Dropdown.Item eventKey="1">Последнее обновление</Dropdown.Item>
@@ -85,7 +107,8 @@ function UserProfilePage() {
                                 </ButtonGroup>
                             </Stack>
                             <Row>
-                                <Col className="col-12 mb-3" sm={6} xl={4}>
+                               { [0,0,0, 0,0].map( i =>
+                               <Col className="col-12 mb-3" sm={6} xl={4}>
                                     <Card className="border-0">
                                         <div className="position-relative">
                                             <Card.Img className="card-img" variant="top" src="/user-bg.webp" />
@@ -99,7 +122,7 @@ function UserProfilePage() {
                                                 </Stack>
                                             </Card.ImgOverlay>
                                             <div className="position-absolute bottom-0 w-100">
-                                                <Button variant="dark" className="username-badge rounded-0 w-100">#board</Button>
+                                                <Button as={Link} to="/user/board" variant="dark" className="username-badge rounded-0 w-100">#board</Button>
                                                 <ProgressBar className="rounded-0" style={{height:"5px"}} now={60} />
                                             </div>
                                         </div>
@@ -109,7 +132,7 @@ function UserProfilePage() {
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
-                                </Col>
+                                </Col>)}
                             </Row>
                         </div>
                     </Col>
