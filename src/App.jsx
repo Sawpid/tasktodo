@@ -7,6 +7,7 @@ import BoardPage from './pages/BoardPage/BoardPage';
 import SignInAuth from './components/auth/SignInAuth';
 import SignUpAuth from './components/auth/SignUpAuth';
 import NotFoundPage from "./pages/StatusCodePage/NotFoundPage";
+import UserProfilePage from "./pages/ProfilePage.jsx/UserProfilePage";
 
 function App() {
   return (
@@ -14,12 +15,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate replace to="/auth/signin" />}/>
         <Route path="*" element={<NotFoundPage />}/>
-        <Route path="/board" element={<BoardPage />}>
-          <Route path="explore" element={<BoardPage />} />
-          <Route path=":username" element={<BoardPage />} >
-            <Route path=":boardname" element={<BoardPage />} />
-          </Route>
-        </Route>
+        <Route path="explore" element={<BoardPage />} />
+        <Route path=":username" element={<UserProfilePage />} />
+        <Route path=":username/:boardname" element={<BoardPage />} />
         <Route path="/auth" element={<AuthPage />}>
           <Route path="signin" element={<SignInAuth />} />
           <Route path="signup" element={<SignUpAuth />} />

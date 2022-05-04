@@ -14,11 +14,11 @@ function HeadBoard({setEdit, isEdit=false}) {
                 <ButtonGroup vertical >
                     <Button variant="success" >
                         Сохранить
-                        <sup className="small">13</sup>
+                        <sup className="d-none small">13</sup>
                     </Button>
                     <Button onClick={setEdit} className="shadow-btn"
                     variant={(isEdit)?"secondary":"outline-secondary"}>
-                        Редактировать
+                        Редактирование: {isEdit?"Вкл":"Выкл"}
                     </Button>
                 </ButtonGroup>
             </Col>

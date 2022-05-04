@@ -105,7 +105,7 @@ function DetailTask({children, className, data, updateTask, deleteTask}) {
                         <Col sm={3}>
                             <Row className="gx-1">
                                 <Col sm={6} lg={12} className="mb-3">
-                                    <Button className="w-100" variant="success">
+                                    <Button className="w-100 rounded-pill" variant="success">
                                         <span className="d-inline d-sm-none d-lg-inline">Редактировать</span>
                                         <FontAwesomeIcon 
                                             className="d-none d-sm-inline d-lg-none" 
@@ -115,7 +115,7 @@ function DetailTask({children, className, data, updateTask, deleteTask}) {
                                 </Col>
                                 <Col sm={6} lg={12} className="mb-3">
                                     <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
-                                        <Button className="w-100" variant="danger">
+                                        <Button className="w-100 rounded-pill" variant="danger">
                                             <span className="d-inline d-sm-none d-lg-inline">Удалить</span>
                                             <FontAwesomeIcon 
                                                 className="d-none d-sm-inline d-lg-none"  
@@ -125,7 +125,7 @@ function DetailTask({children, className, data, updateTask, deleteTask}) {
                                     </OverlayTrigger>
                                 </Col>
                                 <Col sm={12} className="mb-3">
-                                    <Button className="w-100" variant="primary">
+                                    <Button className="w-100 rounded-pill" variant="primary">
                                         <span className="d-inline d-sm-none d-lg-inline">Поделиться</span>
                                         <FontAwesomeIcon 
                                             className="d-none d-sm-inline d-lg-none" 
@@ -137,17 +137,19 @@ function DetailTask({children, className, data, updateTask, deleteTask}) {
                                     <Form.Label>Прогресс {item.progress}%</Form.Label>
                                     <Form.Range name="progress" onChange={(e) => {updateTask(e, 0, item.id)}} value={item.progress}/>
                                 </Col>
-                                <Col className="mb-3">
+                                <Col sm={12} className="col-6 mb-3">
                                     <Form.Label>Статус</Form.Label>
                                     <Select
+                                        components={{ DropdownIndicator : "" }}
+                                        dropdownIndicator={false}
                                         defaultValue={getStateOption}
                                         closeMenuOnSelect={false}
                                         options={colStateOptions}
-                                        />
+                                    />
                                 </Col>
-                                <Col className="mb-3">
+                                <Col sm={12} className="col-6 mb-3">
                                     <Form.Label>Автор</Form.Label>
-                                    <Button className="w-100" variant="outline-success">Сергей Вернигора</Button>
+                                    <Button className="w-100" variant="outline-dark">Сергей Вернигора</Button>
                                 </Col>
                             </Row>
                         </Col>

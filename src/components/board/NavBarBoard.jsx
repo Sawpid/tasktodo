@@ -1,7 +1,8 @@
 import React from "react"
 import { Link } from "react-router-dom";
-import { Navbar, Nav, Container, Badge } from "react-bootstrap"
+import { Navbar, Nav, Container, Badge, Dropdown } from "react-bootstrap"
 import ConfigBoard from "./ConfigBoard"
+import UserContextMenu from "../profile/UserContextMenu";
 
 function NavBarBoard() {
     return (
@@ -24,7 +25,9 @@ function NavBarBoard() {
                         </Badge>
                     </Nav.Link>
                 </Nav>
-                <Link className="btn btn-warning d-flex shadow-btn rounded-pill" to="/auth/signin">Войти</Link>
+                {true
+                ?<UserContextMenu/>
+                :<Link className="btn btn-warning d-flex shadow-btn rounded-pill" to="/auth/signin">Войти</Link>}
             </Container>
         </Navbar>
     )

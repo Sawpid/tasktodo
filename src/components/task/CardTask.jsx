@@ -40,7 +40,7 @@ function CardTask({readonly, idx, data, updateTask, deleteTask}) {
             <Card.Footer className="text-muted p-2">
                 <Stack direction="horizontal" gap={3}>
                     <small class="text-muted">{data.update_date}</small>
-                    <FontAwesomeIcon className="ms-auto fa-1xm" icon={faUserCircle}/>
+                    <img className="ms-auto img-user-sm" src="/user-placeholder.png" />
                 </Stack>
             </Card.Footer>
         </TaskDetailBoard>
