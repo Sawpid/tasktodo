@@ -9,21 +9,8 @@ function NavBarBoard() {
         <Navbar bg="primary" variant="dark" fixed="top" >
             <Container>
             <Navbar.Brand href="#desk">TaskToDo</Navbar.Brand>
-                <Nav>
-                    <ConfigBoard/>
-                </Nav>
-                <Nav>
-                    <Nav.Link href="#tags">
-                        Метки
-                    </Nav.Link>
-                </Nav>
                 <Nav className="me-auto">
-                    <Nav.Link href="#members" className="position-relative">
-                        Участники
-                        <Badge bg="danger" className="position-absolute botton-0 start-100 translate-middle rounded-pill">
-                            1
-                        </Badge>
-                    </Nav.Link>
+                    <ConfigBoard/>
                 </Nav>
                 {true
                 ?<UserContextMenu/>

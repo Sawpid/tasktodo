@@ -43,18 +43,15 @@ function HeadBoard({setEdit, isEdit=false}) {
                         <InputGroup className="mb-3">
                             <DropdownButton
                                 variant="success"
-                                title="Фильтр"
+                                title={<FontAwesomeIcon icon={faFilter}/>}
                             >
                                 <Form className="m-2">
-                                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                    <Form.Group className="mb-3" >
                                         <Form.Label>Участник</Form.Label>
                                         <Form.Control type="text" />
                                     </Form.Group>
                                 </Form>
                             </DropdownButton>
-                            <Button variant="success">
-                                <FontAwesomeIcon icon={faFilter}/>
-                            </Button>
                             <Button variant="success">
                                 <FontAwesomeIcon icon={faArrowDownShortWide}/>
                             </Button>
@@ -63,17 +60,19 @@ function HeadBoard({setEdit, isEdit=false}) {
                 </Col>
                 <Col className="col-12 text-end mb-3" sm={5}>
           
-                        <ButtonGroup className="mb-3">
-                            <Button variant="secondary">Присоединиться</Button> 
-                        </ButtonGroup>
-                        <ButtonGroup className="mb-3 ms-2">
-                            <Button>
-                                Поддержать
-                            </Button> 
-                            <Button>
-                                <FontAwesomeIcon icon={farStar}/>
-                            </Button> 
-                        </ButtonGroup>
+                    <ButtonGroup className="mb-3">
+                        <Button variant="secondary">Присоединиться</Button> 
+                    </ButtonGroup>
+                    
+                    <ButtonGroup className="mb-3 ms-2">
+                        <Button>
+                            Поддержать
+                        </Button> 
+                        <Button>
+                            <FontAwesomeIcon icon={farStar}/>
+                        </Button> 
+                    </ButtonGroup>
+
                 </Col>
             </Row>
         </>

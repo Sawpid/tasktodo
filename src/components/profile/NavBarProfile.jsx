@@ -1,8 +1,8 @@
 import React from "react"
 import { Link } from "react-router-dom";
-import { Navbar, Nav, Container, Button, Dropdown } from "react-bootstrap"
+import { Navbar, Nav, Container, Button } from "react-bootstrap"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faPlusCircle, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import NavContextUser from "./UserContextMenu";
 import SearchContextMenu from "../explore/SearchContextMenu";
 import CreateBoardModal from "../board/CreateBoardModal";
@@ -11,14 +11,14 @@ function NavBarProfile() {
     return (
         <Navbar bg="primary" variant="dark" fixed="top" >
             <Container>
-            <Navbar.Brand href="#desk">TaskToDo</Navbar.Brand>
+            <Navbar.Brand href="#">TaskToDo</Navbar.Brand>
                 <Nav>
-                    <Nav.Link href="#tags">
+                    <Nav.Link href="#search">
                         <SearchContextMenu/>
                     </Nav.Link>
                 </Nav>
                 <Nav className="me-auto">
-                    <Nav.Link href="#tags">
+                    <Nav.Link as={Link} to="/explore" href="/explore">
                         Обзор
                     </Nav.Link>
                 </Nav>
@@ -32,7 +32,14 @@ function NavBarProfile() {
                     </CreateBoardModal>
                     <NavContextUser/>
                 </>
-                :<Link className="btn btn-warning d-flex shadow-btn rounded-pill" to="/auth/signin">Войти</Link>}
+                :
+                <Link 
+                    className="btn btn-warning d-flex shadow-btn rounded-pill" 
+                    to="/auth/signin"
+                >
+                    Войти
+                </Link>
+                }
             </Container>
         </Navbar>
     )

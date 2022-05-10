@@ -2,21 +2,23 @@ import React, {useState} from "react"
 import Select from 'react-select';
 import { Card, Badge, Stack, OverlayTrigger, Popover, Nav, Modal, Row, Col,  Button, ButtonGroup, Form, FloatingLabel, ProgressBar } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenToSquare, faUserCircle, faTrash, faShareNodes } from '@fortawesome/free-solid-svg-icons'
+import { faPenToSquare, faUserCircle, faTrash, faShareNodes, faFloppyDisk, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { baseTags, sampleMembers } from "../../model/boardData"
 import {useBoard} from "../../hooks/board.hook"
 
 function DetailTask({children, className, data, updateTask, deleteTask}) {
+    const [edit, setEdit] = useState(false);
     const [show, setShow] = useState(false);
     const {boardData,} = useBoard();
     const colStateOptions = boardData.map(el => ({value:el.id, label:el.name}))
 
-    const getTagOption = data.tags.map(el => (baseTags[el]))
-    const getMemberOption = data.members.map(el => (sampleMembers[el]))
-    const getStateOption = colStateOptions.find(x => x.value === data.status)
-    
-    // console.log(data.status)
     const item = data
+
+    const getTagOption = item.tags.map(el => (baseTags[el]))
+    const getMemberOption = item.members.map(el => (sampleMembers[el]))
+    const getStateOption = colStateOptions.find(x => x.value === item.status)
+    
+    // console.log(item.status)
 
     const popover = (
         <Popover>
@@ -25,7 +27,7 @@ function DetailTask({children, className, data, updateTask, deleteTask}) {
             <Stack direction="horizontal" gap={2}>
                 <Button 
                     variant="success" 
-                    onClick={() => {deleteTask(0, data.id)}} 
+                    onClick={() => {deleteTask(0, item.id)}} 
                 >
                     Да
                 </Button>
@@ -45,12 +47,12 @@ function DetailTask({children, className, data, updateTask, deleteTask}) {
 
                 <Modal.Header closeButton>
                     <Modal.Title>
-                    Задача #{item.id}  {item.name}
+                        Задача #{item.id}  {item.name}
                     </Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
-                    <Row>
+                    <Row className="gx-2">
                         <Col sm={9}>
                             <Nav fill variant="pills" defaultActiveKey="#d" className="mb-3">
                                 <Nav.Item>
@@ -66,54 +68,105 @@ function DetailTask({children, className, data, updateTask, deleteTask}) {
                             <Form>
                                 <Form.Group className="mb-3" >
                                     <Form.Label>Название</Form.Label>
-                                    <Form.Control 
+                                    <p>
+                                    {edit 
+                                    ?<Form.Control 
                                         type="text" 
                                         placeholder="" 
                                         name="name"
-                                        onChange={(e) => {updateTask(e, 0, data.id)}}
-                                        />
+                                        value={item.name}
+                                        onChange={(e) => {updateTask(e, 0, item.id)}}
+                                    />
+                                    :<Card.Title>{item.name}</Card.Title>
+                                    }
+                                    </p>
                                 </Form.Group>
                                 <Form.Group className="mb-3" >
                                     <Form.Label>Описание</Form.Label>
-                                    <Form.Control 
+                                    <p>
+                                    {edit 
+                                    ?<Form.Control 
                                         as="textarea" 
                                         rows={3} 
-                                        value={data.text} 
+                                        value={item.text} 
                                         name="text"
-                                        onChange={(e) => {updateTask(e, 0, data.id)}}
+                                        onChange={(e) => {updateTask(e, 0, item.id)}}
                                     />
+                                    :<Card.Text>{item.text}</Card.Text>
+                                    }
+                                    </p>
                                 </Form.Group>
                                 <Form.Group className="mb-3" >
                                     <Form.Label>Метки</Form.Label>
-                                    <Select
+                                    <p>
+                                    {edit 
+                                    ?<Select
                                         defaultValue={getTagOption}
                                         options={baseTags}
-                                        onChange={(e)=> data.tags = e.map(el => el.value)}
+                                        onChange={(e)=> item.tags = e.map(el => el.value)}
                                         isMulti
                                     />
+                                    :item.tags.map((tag) => (
+                                        baseTags[tag] !== undefined &&
+                                        <Badge pill bg={baseTags[tag].color} className="task-badge p-2 px-3">
+                                            {baseTags[tag].label}
+                                        </Badge>
+                                    ))
+                                    }
+                                    </p>
                                 </Form.Group>
                                 <Form.Group className="mb-3" >
                                     <Form.Label>Участники</Form.Label>
-                                    <Select
+                                    <p>
+                                    {edit 
+                                    ?<Select
                                         defaultValue={getMemberOption}
                                         options={sampleMembers}
                                         isMulti
                                     />
+                                    :item.members.map((member) => (
+                                        sampleMembers[member] !== undefined &&
+                                        <Button variant="outline-dark" className="border border-2 rounded-pill p-0">
+                                            <Stack direction="horizontal">
+                                                <img className="img-user-md border-light shadow-btn" srcSet="/user-placeholder.png"/>
+                                                <span className="px-2">{sampleMembers[member].label}</span>
+                                            </Stack>
+                                        </Button>
+                                    ))
+                                    }
+                                    </p>
                                 </Form.Group>
                             </Form>
                         </Col>
                         <Col sm={3}>
                             <Row className="gx-1">
-                                <Col sm={6} lg={12} className="mb-3">
-                                    <Button className="w-100 rounded-pill" variant="success">
-                                        <span className="d-inline d-sm-none d-lg-inline">Редактировать</span>
+                                <Col sm={edit?6:12} lg={12} className="mb-3">
+                                    <Button 
+                                        variant="success"
+                                        className="w-100 rounded-pill" 
+                                        onClick={() => {setEdit(!edit)}}
+                                    >
+                                        <span className="d-inline d-sm-none d-lg-inline">
+                                            {edit?"Сохранить":"Редактировать"}
+                                        </span>
                                         <FontAwesomeIcon 
                                             className="d-none d-sm-inline d-lg-none" 
-                                            icon={faPenToSquare}  
+                                            icon={edit?faFloppyDisk:faPenToSquare}
                                         />
                                     </Button>
                                 </Col>
+                                {edit &&
+                                <>
                                 <Col sm={6} lg={12} className="mb-3">
+                                    <Button className="w-100 rounded-pill" variant="secondary">
+                                        <span className="d-inline d-sm-none d-lg-inline">Отменить</span>
+                                        <FontAwesomeIcon 
+                                            className="d-none d-sm-inline d-lg-none"  
+                                            icon={faXmark}
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={12} className="mb-3">
                                     <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
                                         <Button className="w-100 rounded-pill" variant="danger">
                                             <span className="d-inline d-sm-none d-lg-inline">Удалить</span>
@@ -124,6 +177,8 @@ function DetailTask({children, className, data, updateTask, deleteTask}) {
                                         </Button>
                                     </OverlayTrigger>
                                 </Col>
+                                </>
+                                }
                                 <Col sm={12} className="mb-3">
                                     <Button className="w-100 rounded-pill" variant="primary">
                                         <span className="d-inline d-sm-none d-lg-inline">Поделиться</span>
@@ -135,11 +190,15 @@ function DetailTask({children, className, data, updateTask, deleteTask}) {
                                 </Col>
                                 <Col className="col-12 mb-3">
                                     <Form.Label>Прогресс {item.progress}%</Form.Label>
-                                    <Form.Range name="progress" onChange={(e) => {updateTask(e, 0, item.id)}} value={item.progress}/>
+                                    {edit 
+                                    ?<Form.Range name="progress" onChange={(e) => {updateTask(e, 0, item.id)}} value={item.progress}/>
+                                    :<ProgressBar now={item.progress} />
+                                    }
                                 </Col>
                                 <Col sm={12} className="col-6 mb-3">
                                     <Form.Label>Статус</Form.Label>
                                     <Select
+                                        isDisabled={!edit}
                                         components={{ DropdownIndicator : "" }}
                                         dropdownIndicator={false}
                                         defaultValue={getStateOption}
@@ -149,7 +208,14 @@ function DetailTask({children, className, data, updateTask, deleteTask}) {
                                 </Col>
                                 <Col sm={12} className="col-6 mb-3">
                                     <Form.Label>Автор</Form.Label>
-                                    <Button className="w-100" variant="outline-dark">Сергей Вернигора</Button>
+                                    <p>
+                                    <Button variant="outline-dark" className="border border-2 rounded-pill p-0">
+                                        <Stack direction="horizontal">
+                                            <img className="img-user-md shadow-btn" srcSet="/user-placeholder.png"/>
+                                            <small className="px-2">{sampleMembers[0].label}</small>
+                                        </Stack>
+                                    </Button>
+                                    </p>
                                 </Col>
                             </Row>
                         </Col>

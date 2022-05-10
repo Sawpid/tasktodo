@@ -1,71 +1,40 @@
 import React from "react"
-import { Link } from "react-router-dom";
-import { Container, Row, Col, Card, ListGroup, ListGroupItem, Button, Stack, Badge, Nav, ButtonGroup, Dropdown, ProgressBar, DropdownButton, FormControl } from "react-bootstrap"
-import NavBarProfile from "../../components/profile/NavBarProfile";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome, faUserCheck, faLightbulb, faLandmark, faGraduationCap, faEnvelope, faArrowDownShortWide, faArrowUpShortWide, faStar } from '@fortawesome/free-solid-svg-icons'
+import { Link, useOutlet, useLocation } from "react-router-dom";
+import { Container, Row, Col, Nav, Card, ListGroup } from "react-bootstrap"
+import NavBarProfile   from "../../components/profile/NavBarProfile";
+import CardUserProfile from "../../components/profile/CardUserProfile";
 
 function UserProfilePage() {
+
+    const loc = useLocation()
+    const locPath = loc.pathname.split("/")
+    const outlet = useOutlet()
 
     return(
         <>
             <NavBarProfile/>
 
             <Container  className="py-5 mt-5">
+
                 <Row>
+
                     <Col lg={4} >
-                        <Card className="border-0 mb-3">
-                            <Card.Header 
-                                className="user-hero card-img" 
-                                style={{backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url(/user-bg.webp)'}}>
-                                <div className="text-center position-relative">
-                                    <img className="img-user-lg" src="/user-placeholder.png" />
-                                    <Button variant="dark" className="username-badge position-absolute">@User</Button>
-                                </div>
-                            </Card.Header>
-                            <Card.Body>
-                                <Card.Title>Вернигора Сергей Михайлович</Card.Title>
-                                <Card.Text>
-                                Работа в роли разработчика в Agile-команде. Доработка и разработка новых функциональных возможностей фронт-системы. 
-                                </Card.Text>
-                            </Card.Body>
-                            <ListGroup className="list-group-flush">
-                                <ListGroupItem>
-                                    <FontAwesomeIcon className="me-2" icon={faLandmark}/>
-                                    Московский политехнический университет
-                                </ListGroupItem>
-                                <ListGroupItem>
-                                    <FontAwesomeIcon className="me-2" icon={faGraduationCap}/>
-                                    Информатика и вычислительная техника
-                                </ListGroupItem>
-                                <ListGroupItem>
-                                    <FontAwesomeIcon className="me-2" icon={faEnvelope}/>
-                                    shipoopi159@gmail.com
-                                </ListGroupItem>
+                        {locPath[2] === "settings"
+                        ?<Card className="mb-3">
+                            <Card.Header className="h4">Настройки</Card.Header>
+                            <ListGroup variant="flush">
+                                <ListGroup.Item action>Основные</ListGroup.Item>
+                                <ListGroup.Item action>Проекты</ListGroup.Item>
+                                <ListGroup.Item action>Безопасность</ListGroup.Item>
                             </ListGroup>
-                            <Card.Body>
-                                <Card.Text>
-                                    <FontAwesomeIcon className="me-2" icon={faLightbulb}/>
-                                    Навыки
-                                </Card.Text>
-                                <Badge className="ms-1" bg="primary">JavaScript</Badge> 
-                                <Badge className="ms-1" bg="primary">JavaScript</Badge> 
-                                <Badge className="ms-1" bg="primary">JavaScript</Badge> 
-                                <Badge className="ms-1" bg="primary">JavaScript</Badge> 
-                                <Badge className="ms-1" bg="primary">JavaScript</Badge> 
-                                <Badge className="ms-1" bg="primary">JavaScript</Badge> 
-                                <Badge className="ms-1" bg="primary">JavaScript</Badge> 
-                            </Card.Body>
-                            <Card.Footer>
-                                <Stack gap={2} direction="horizontal" >
-                                    <Button variant="success rounded-pill me-auto">Редактировать</Button>
-                                    <Button variant="outline-secondary rounded-pill">Выход</Button>
-                                </Stack>
-                            </Card.Footer>
+                            <Card.Footer className="text-muted"></Card.Footer>
                         </Card>
+                        :<CardUserProfile />
+                        }
                     </Col>
+
                     <Col lg={8} >
-                        <Nav fill variant="pills" className="nav-lg mb-3" defaultActiveKey="project">
+                        <Nav fill variant="pills" className="nav-lg mb-3" activeKey={locPath[2]} defaultActiveKey="project">
                             <Nav.Item>
                                 <Nav.Link as={Link} to="project" href="project">Проекты</Nav.Link>
                             </Nav.Item>
@@ -76,66 +45,9 @@ function UserProfilePage() {
                                 <Nav.Link as={Link} to="settings" href="settings">Настройки</Nav.Link>
                             </Nav.Item>
                         </Nav>
-                        <div>
-                            <Stack gap={2} direction="horizontal" className="mb-3">
-                                <Nav fill variant="pills" className="nav-sm" defaultActiveKey="project">
-                                    <Nav.Item>
-                                        <Nav.Link as={Link} to="project" href="project">
-                                            <FontAwesomeIcon  icon={faHome}/>
-                                        </Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item>
-                                        <Nav.Link as={Link} to="groups" href="groups">
-                                            <FontAwesomeIcon  icon={faUserCheck}/>
-                                        </Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item>
-                                        <Nav.Link as={Link} to="settings" href="settings">
-                                            <FontAwesomeIcon  icon={faStar}/>
-                                        </Nav.Link>
-                                    </Nav.Item>
-                                </Nav>
-                                <ButtonGroup className="ms-auto">
-                                    <DropdownButton title="Последнее обновление" bsPrefix="dropdown-toggle btn btn-secondary btn-first-pill" >
-                                        <Dropdown.Item eventKey="1">Последнее обновление</Dropdown.Item>
-                                        <Dropdown.Item eventKey="2">Мои проекты</Dropdown.Item>
-                                        <Dropdown.Item eventKey="2">Проекты в качестве участника</Dropdown.Item>
-                                    </DropdownButton>
-                                    <Button variant="secondary" className="btn-last-pill">
-                                        <FontAwesomeIcon className="me-2" icon={faArrowDownShortWide}/>
-                                    </Button>
-                                </ButtonGroup>
-                            </Stack>
-                            <Row>
-                               { [0,0,0, 0,0].map( i =>
-                               <Col className="col-12 mb-3" sm={6} xl={4}>
-                                    <Card className="border-0">
-                                        <div className="position-relative">
-                                            <Card.Img className="card-img" variant="top" src="/user-bg.webp" />
-                                            <Card.ImgOverlay className="p-0">
-                                                <Stack gap={2} direction="horizontal" className="p-3">
-                                                    <Badge pill bg="light" text="dark">В разработке</Badge>
-                                                    <Badge pill bg="dark" className="ms-auto bg-transparent">
-                                                        <FontAwesomeIcon className="me-2" icon={faStar}/>
-                                                        100
-                                                    </Badge>
-                                                </Stack>
-                                            </Card.ImgOverlay>
-                                            <div className="position-absolute bottom-0 w-100">
-                                                <Button as={Link} to="/user/board" variant="dark" className="username-badge rounded-0 w-100">#board</Button>
-                                                <ProgressBar className="rounded-0" style={{height:"5px"}} now={60} />
-                                            </div>
-                                        </div>
-                                        <Card.Body>
-                                            <Card.Text>
-                                                Система заточена под работу с документами, и именно на это ставит ограничение на бесплатном тарифе: до 100 задач, созданных по готовым формам.
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>)}
-                            </Row>
-                        </div>
+                        {outlet}
                     </Col>
+
                 </Row>
 
             </Container>

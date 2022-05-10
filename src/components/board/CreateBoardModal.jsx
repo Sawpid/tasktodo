@@ -1,21 +1,34 @@
 import React, {useState} from "react"
 import Select from 'react-select';
-import { Card, Badge, Stack, OverlayTrigger, Popover, Nav, ListGroup, Modal, Row, Col,  Button, ButtonGroup, Form, FloatingLabel, ProgressBar } from "react-bootstrap";
+import { ToggleButton, Card, Badge, Stack, OverlayTrigger, Popover, Nav, ListGroup, Modal, Row, Col,  Button, ButtonGroup, Form, FloatingLabel, ProgressBar } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare, faUserCircle, faTrash, faShareNodes } from '@fortawesome/free-solid-svg-icons'
-import { templateBoard, defaultTaskData } from "../../model/boardData"
+import { templateBoard, viewAccessLevel, headBoard } from "../../model/boardData"
 
 function CreateBoardModal({children}) {
+    // show modal
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    // data board
+    const [newId, newIdState] = useState(1);
+    const [board, setBoard] = useState(headBoard(newId));
+    const updateBoard = (e) => {
+        e.persist();
+        setBoard(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    }
+    const updateSelectBoard = (e, key) => {
+        setBoard(prev => ({ ...prev, [key]: e.value }));
+    }
+    const submitBoard = (e) => {
+        e.preventDefault()
+        console.log(e)
+    }
 
     return(
         <>
             <div 
                 // className={className} 
-                onClick={handleShow}
+                onClick={()=>setShow(true)}
             >
                 {children}
             </div>
@@ -30,14 +43,17 @@ function CreateBoardModal({children}) {
                 <Modal.Header closeButton>
                     <Modal.Title>Создание нового проекта</Modal.Title>
                 </Modal.Header>
+                    <Form onSubmit={submitBoard}>
                 <Modal.Body>
-                    <Form>
                         <Form.Group className="mb-3">
-                            <FloatingLabel
-                                label="Название проекта"
-                                className="mb-2"
-                            >
-                                <Form.Control type="email" placeholder="name@example.com" />
+                            <FloatingLabel label="Название проекта">
+                                <Form.Control 
+                                    placeholder="Введите название проекта"
+                                    type="text" 
+                                    name="name"
+                                    value={board.name}
+                                    onChange={updateBoard}
+                                />
                             </FloatingLabel>
                             <Form.Text muted>
                                 Введите короткое и запоминающееся название проекта.
@@ -48,10 +64,12 @@ function CreateBoardModal({children}) {
                         <Form.Group className="mb-3">
                             <FloatingLabel label="Описание проекта">
                                 <Form.Control
-                                    className="mb-2"
-                                    as="textarea"
-                                    placeholder="Введите краткое описание проекта"
                                     style={{ height: '100px' }}
+                                    placeholder="Введите краткое описание проекта"
+                                    as="textarea"
+                                    name="description"
+                                    value={board.description}
+                                    onChange={updateBoard}
                                 />
                             </FloatingLabel>
                             <Form.Text muted>
@@ -61,24 +79,30 @@ function CreateBoardModal({children}) {
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <ListGroup className="w-100 mb-2">
-                                <ListGroup.Item action active>
-                                    <div className="ms-2 me-auto">
-                                        <div className="fw-bold">Публичный</div>
-                                        Разрешить всем пользователям просматривать ваш проект
-                                    </div>
-                                </ListGroup.Item>
-                                <ListGroup.Item action>
-                                    <div className="ms-2 me-auto">
-                                        <div className="fw-bold">По ссылке</div>
-                                        Проект не будет отображаться в поиске и вашем профиле
-                                    </div>
-                                </ListGroup.Item>
-                                <ListGroup.Item action >
-                                    <div className="ms-2 me-auto">
-                                        <div className="fw-bold">Приватный</div>
-                                        Только участники вашего проекта могут просматривать ваш проект
-                                    </div>
-                                </ListGroup.Item>
+                                {viewAccessLevel.map( item => 
+                                    <>
+                                        <input 
+                                            id={"access_level"+item.value}
+                                            className="btn-check"
+                                            value={item.value}
+                                            type="radio"
+                                            name="access_level"
+                                            onChange={updateBoard}
+                                        />
+                                        <ListGroup.Item 
+                                            key={item.value}
+                                            as="label"
+                                            action 
+                                            htmlFor={"access_level"+item.value}
+                                            active={board.access_level == item.value}
+                                        >
+                                            <div className="ms-2 me-auto">
+                                                <div className="fw-bold">{item.label}</div>
+                                                {item.description}
+                                            </div>
+                                        </ListGroup.Item>
+                                    </>
+                                )}
                             </ListGroup>
                             <Form.Text muted>
                                 Выберите уровень доступа для просмотр и нахождение вашего проекта.
@@ -87,25 +111,24 @@ function CreateBoardModal({children}) {
                         <Form.Group className="mb-3">
                             <Select
                                 className="mb-2"
-                                dropdownIndicator={false}
                                 defaultValue={templateBoard[0]}
-                                closeMenuOnSelect={false}
                                 options={templateBoard}
+                                onChange={(e) => updateSelectBoard(e, "board_template")}
                             />
                             <Form.Text muted>
                                 Выберите шаблон проекта
                             </Form.Text>
                         </Form.Group>
-                    </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
                         Отменить
                     </Button>
-                    <Button variant="success" className="rounded-pill ms-auto">
+                    <Button variant="success" className="rounded-pill ms-auto" type="submit">
                         Создать
                     </Button>
                 </Modal.Footer>
+                    </Form>
             </Modal>
         </>
     )

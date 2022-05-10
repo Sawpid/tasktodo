@@ -22,7 +22,7 @@ function UserContextMenu() {
                     Настройки
                 </Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item as={Link} to="/">
+                <Dropdown.Item as={Link} to="/auth/logout">
                     <FontAwesomeIcon className="me-3" icon={faArrowRightFromBracket}/>
                     Выйти
                 </Dropdown.Item>

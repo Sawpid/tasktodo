@@ -39,7 +39,7 @@ function CardTask({readonly, idx, data, updateTask, deleteTask}) {
             </Card.Body>
             <Card.Footer className="text-muted p-2">
                 <Stack direction="horizontal" gap={3}>
-                    <small class="text-muted">{data.update_date}</small>
+                    <small className="text-muted">{data.update_date}</small>
                     <img className="ms-auto img-user-sm" src="/user-placeholder.png" />
                 </Stack>
             </Card.Footer>
