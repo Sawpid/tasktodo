@@ -1,0 +1,26 @@
+{
+  "name": "tasktodo-mern-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type":"module",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "keywords": [
+    "mern",
+    "mongodb",
+    "express",
+    "npm"
+  ],
+  "author": "rehill <shipoopi159@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
