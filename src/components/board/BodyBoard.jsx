@@ -4,7 +4,7 @@ import {useBoard} from "../../hooks/board.hook"
 import CardTask from "../task/CardTask"
 import ColCardBoard from "./ColCardBoard"
 
-function BodyBoard({ isEdit=false }) {
+function BodyBoard({ isEdit=false, filter }) {
 
     const {
         addTask,
@@ -15,10 +15,10 @@ function BodyBoard({ isEdit=false }) {
     } = useBoard();
 
 
+
     return(
         <Row>
             {boardData.map((item, colIdx) => (
-
                 <ColCardBoard
                     key={item.id}
                     editor={isEdit}
@@ -36,6 +36,7 @@ function BodyBoard({ isEdit=false }) {
                             data={task}
                             updateTask={updateTask}
                             deleteTask={deleteTask}
+                            hidden={task.hidden}
                         />
 
                     ))}

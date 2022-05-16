@@ -3,9 +3,10 @@ import { Col, Row, ButtonGroup, Button, ButtonToolbar, InputGroup, FormControl, 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faPlusCircle, faMagnifyingGlass, faArrowUpShortWide, faArrowDownShortWide, faFilter, faFilterCircleXmark } from '@fortawesome/free-solid-svg-icons'
 import {faStar as farStar}  from '@fortawesome/free-regular-svg-icons'
+import Select from 'react-select';
+import { sampleMembers } from "../../model/boardData";
 
-
-function HeadBoard({setEdit, isEdit=false}) {
+function HeadBoard({setEdit, isEdit=false, filter, setFilter}) {
     return (
         <>
             <Row>
@@ -35,6 +36,9 @@ function HeadBoard({setEdit, isEdit=false}) {
                             <FormControl
                                 type="text"
                                 placeholder="Введите для поиска..."
+                                value={filter.search}
+                                name="search"
+                                onChange={setFilter}
                             />
                             <Button variant="light">
                                 <FontAwesomeIcon icon={faMagnifyingGlass}/>
@@ -42,13 +46,19 @@ function HeadBoard({setEdit, isEdit=false}) {
                         </InputGroup>
                         <InputGroup className="mb-3">
                             <DropdownButton
+                                
                                 variant="success"
                                 title={<FontAwesomeIcon icon={faFilter}/>}
                             >
-                                <Form className="m-2">
+                                <Form className="m-2" style={{minWidth:"300px"}}>
                                     <Form.Group className="mb-3" >
-                                        <Form.Label>Участник</Form.Label>
-                                        <Form.Control type="text" />
+                                        <Form.Label>Разработчик</Form.Label>
+                                        <Select
+                                            isClearable
+                                            defaultValue={null}
+                                            options={sampleMembers}
+                                            onChange={(e) => setFilter(e, "member")}
+                                        />
                                     </Form.Group>
                                 </Form>
                             </DropdownButton>

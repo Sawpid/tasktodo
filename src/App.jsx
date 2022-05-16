@@ -9,41 +9,59 @@ import NotFoundPage from "./pages/StatusCodePage/NotFoundPage";
 import UserProfilePage from "./pages/ProfilePage/UserProfilePage";
 import ProjectListProfile from "./components/profile/ProjectsListProfile";
 import BaseSettingsProfile from "./components/profile/BaseSettingsProfile";
+import { useLogin } from "./hooks/auth.hook";
+import { LoginContext } from "./hooks/context.hook";
+import LogOutPage from "./pages/AuthPage/LogOutPage";
 
 function App() {
+  const { login, logout, token, userId, username, ready } = useLogin()
+  const isLogin = !!token
   return (
-    <BrowserRouter>
-      <Routes>
-        
-        <Route path="/" element={<Navigate replace to="/auth/signin" />}/>
-        <Route path="/explore" element={<NotFoundPage />} />
+    <LoginContext.Provider value={{userId, token, username, login, logout, isLogin}}>
+      <BrowserRouter>
+        <Routes>
+          
+          <Route path="/" element={<Navigate replace to="/auth/signin" />}/>
 
-        <Route path="/:username" element={<UserProfilePage />} >
-          <Route index element={<Navigate replace to="project" />}/>
-          <Route path="project" element={<ProjectListProfile />} >
-            <Route index element={<ProjectListProfile />} />
-            <Route path="home" element={<ProjectListProfile />} />
-            <Route path="member" element={<ProjectListProfile />} />
-            <Route path="star" element={<ProjectListProfile />} />
-          </Route>
-          <Route path="groups" element={<NotFoundPage />}/>
-          <Route path="settings" element={<BaseSettingsProfile />}/>
-        </Route>
+          {(isLogin)
+            ?<>
+              <Route path="/auth">
+                <Route path="logout" element={<LogOutPage />} />
+                <Route index path="*" element={<Navigate replace to={`/${username}`} />} />
+              </Route>
 
-        <Route path="/:username/:boardname" element={<BoardPage />} />
+              <Route path="/explore" element={<NotFoundPage />} />
 
-        <Route path="/auth" element={<AuthPage />}>
-          <Route path="signin" element={<SignInAuth />} />
-          <Route path="signup" element={<SignUpAuth />} />
-          <Route path="forgot" element={<SignInAuth />} />
-          <Route path="logout" element={<SignInAuth />} />
-          <Route path="*" element={<Navigate replace to="signin" />} />
-        </Route>
+              <Route path="/:username" element={<UserProfilePage />} >
+                <Route index element={<Navigate replace to="project" />}/>
+                <Route path="project" element={<ProjectListProfile />} >
+                  <Route index element={<ProjectListProfile />} />
+                  <Route path="home" element={<ProjectListProfile />} />
+                  <Route path="member" element={<ProjectListProfile />} />
+                  <Route path="star" element={<ProjectListProfile />} />
+                </Route>
+                <Route path="groups" element={<NotFoundPage />}/>
+                <Route path="settings" element={<BaseSettingsProfile />}/>
+              </Route>
 
-        <Route path="*" element={<NotFoundPage />}/>
+              <Route path="/:username/:boardname" element={<BoardPage />} />
+            </>
+            :<>
+              <Route path="/auth" element={<AuthPage />}>
+                <Route path="signin" element={<SignInAuth />} />
+                <Route path="signup" element={<SignUpAuth />} />
+                <Route path="forgot" element={<SignInAuth />} />
+                <Route path="*" element={<Navigate replace to="signin" />} />
+              </Route>
+            </>
+          }
 
-      </Routes>
-  </BrowserRouter>
+
+          <Route path="*" element={<NotFoundPage />}/>
+
+        </Routes>
+      </BrowserRouter>
+    </LoginContext.Provider>
   );
 }
 

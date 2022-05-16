@@ -5,12 +5,12 @@ import { faArrowsUpDownLeftRight, faUserCircle } from '@fortawesome/free-solid-s
 import TaskDetailBoard from "./DetailTaskModal.jsx"
 import { baseTags, sampleMembers } from "../../model/boardData"
 
-function CardTask({readonly, idx, data, updateTask, deleteTask}) {
+function CardTask({readonly, idx, data, updateTask, deleteTask, hidden}) {
 
     const [ colIdx, _taskIdx ] = idx;
 
     return(
-        <TaskDetailBoard className="card mb-3" data={data} deleteTask={deleteTask} updateTask={updateTask} >
+        <TaskDetailBoard className={`card mb-3 ${hidden && "d-none"}`} data={data} deleteTask={deleteTask} updateTask={updateTask} idx={idx} >
             {readonly &&
             <ButtonGroup size="sm" className="btn-rtop">
                 <Button variant="outline-secondary">
@@ -27,7 +27,7 @@ function CardTask({readonly, idx, data, updateTask, deleteTask}) {
                 <div className="mb-3">
                 {data.tags.map((tag) => (
                     baseTags[tag] !== undefined &&
-                    <Badge pill bg={baseTags[tag].color} className="task-badge">
+                    <Badge key={tag} pill bg={baseTags[tag].color} className="task-badge">
                         {baseTags[tag].label}
                     </Badge>
                 ))}

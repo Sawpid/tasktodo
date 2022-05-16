@@ -77,6 +77,13 @@ export const defaultTaskData = (id) => {
     }
 }
 
+export const filterBoard = { 
+    search: "", 
+    sorting: 0,
+    tag: -1, 
+    member: -1,
+}
+
 export const templateBoard = [
     { value: templateId++, label: 'Доска разработчика (В процессе, Тестирование, Завершено)' },
 ];
