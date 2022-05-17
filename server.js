@@ -2,17 +2,20 @@ import 'dotenv/config'
 import express from 'express'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
-import { authRouter } from './routes/auth.routes'
+import { authRouter } from './routes/authRoutes'
+import { projectRouter } from './routes/projectRoutes'
 
 const env = process.env
 const server = express()
 
 server.use(bodyParser.json())
 server.use("/api/auth", authRouter)
+server.use("/api/project", projectRouter)
 
 const start = async () => {
     try {
-        await mongoose.connect(env.DB_HOST)
+        await mongoose.connect(env.DB_HOST, {useNewUrlParser: true, useUnifiedTopology: true})
+        .catch((e) => reasponse.status(500).json({message: "Ошибка сервера!"}))
         server.listen(env.PORT, () => console.log(`start on port ${env.PORT}`))
     } catch (error) {
         console.log(error.message)

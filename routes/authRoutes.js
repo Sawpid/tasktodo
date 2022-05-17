@@ -25,7 +25,7 @@ authRouter.post(
         const {last_name, first_name, username, email, password} = request.body
         const doubleName = await User.findOne({username:username})
         if (doubleName){
-            return reasponse.status(400).json({message:"Имя пользователя уже используется!"})
+            return reasponse.status(409).json({message:"Имя пользователя уже используется!"})
         }
         const doubleEmail = await User.findOne({email:email})
         if (doubleEmail){
