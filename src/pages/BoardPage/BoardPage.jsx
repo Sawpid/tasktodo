@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap"
 import BodyBoard from "../../components/board/BodyBoard"
 import HeadBoard from "../../components/board/HeadBoard"
 import NavBarBoard from "../../components/board/NavBarBoard"
+import ToastUi from "../../components/ui/ToastUi"
 import {useBoard} from "../../hooks/board.hook"
 import "./BoardStyle.css"
 
@@ -28,6 +29,8 @@ function BoardPage() {
                 />
 
             </Container>
+
+            <ToastUi/>
         </>
     )
 }

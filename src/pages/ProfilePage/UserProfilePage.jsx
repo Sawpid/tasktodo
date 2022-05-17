@@ -1,8 +1,9 @@
 import React from "react"
 import { Link, useOutlet, useLocation } from "react-router-dom";
-import { Container, Row, Col, Nav, Card, ListGroup } from "react-bootstrap"
+import { Container, Row, Col, Nav, Card, ListGroup, Toast } from "react-bootstrap"
 import NavBarProfile   from "../../components/profile/NavBarProfile";
 import CardUserProfile from "../../components/profile/CardUserProfile";
+import ToastUi from "../../components/ui/ToastUi";
 
 function UserProfilePage() {
 
@@ -51,6 +52,8 @@ function UserProfilePage() {
                 </Row>
 
             </Container>
+
+            <ToastUi/>
         </>
     )
 }

@@ -1,11 +1,15 @@
-import React, {useState} from "react"
+import React, {useState,useContext} from "react"
 import Select from 'react-select';
 import { ToggleButton, Card, Badge, Stack, OverlayTrigger, Popover, Nav, ListGroup, Modal, Row, Col,  Button, ButtonGroup, Form, FloatingLabel, ProgressBar } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare, faUserCircle, faTrash, faShareNodes } from '@fortawesome/free-solid-svg-icons'
 import { templateBoard, viewAccessLevel, headBoard } from "../../model/boardData"
+import { useAjax } from "../../hooks/ajax.hook";
+import { MessageContext } from "../../hooks/context.hook";
 
 function CreateBoardModal({children}) {
+    const msgContext = useContext(MessageContext)
+    const  {loading, error, request}  = useAjax()
     // show modal
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -22,6 +26,27 @@ function CreateBoardModal({children}) {
     const submitBoard = (e) => {
         e.preventDefault()
         console.log(e)
+    }
+
+    const sendRequest = async () => {
+        const url = '/api/project/create'
+        const bodyData = {
+            name: board.name, 
+            title: board.description, 
+            access: board.access_level, 
+            template: board.board_template
+        }
+
+        try {
+            
+            const data = await request(url, 'POST', bodyData)
+            console.log( data.name)
+            msgContext.showToast(data.message)
+            // authContext.login(data.token, data.id, data.name)
+        } catch (err) {
+            console.log( err)
+            
+        }
     }
 
     return(
@@ -124,7 +149,7 @@ function CreateBoardModal({children}) {
                     <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
                         Отменить
                     </Button>
-                    <Button variant="success" className="rounded-pill ms-auto" type="submit">
+                    <Button variant="success" className="rounded-pill ms-auto" type="submit" onClick={sendRequest}>
                         Создать
                     </Button>
                 </Modal.Footer>

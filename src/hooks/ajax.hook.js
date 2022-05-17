@@ -1,6 +1,8 @@
-import {useState, useCallback} from 'react'
+import {useState, useCallback, useContext} from 'react'
+import { LoginContext } from './context.hook'
 
 export const useAjax = () => {
+  const authContext = useContext(LoginContext)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
@@ -11,6 +13,9 @@ export const useAjax = () => {
         if (body) {
           body = JSON.stringify(body)
           headers['Content-Type'] = 'application/json'
+        }
+        if (!!authContext.token){
+          headers['Authorization'] = `Bearer ${authContext.token}`
         }
 
         const response = await fetch(url, {method, body, headers})

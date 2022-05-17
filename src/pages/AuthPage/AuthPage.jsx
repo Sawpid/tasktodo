@@ -5,12 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserPlus, faKey, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import {useAuth} from "../../hooks/auth.hook"
 import {useAjax} from "../../hooks/ajax.hook"
-import { LoginContext } from "../../hooks/context.hook";
+import { LoginContext, MessageContext } from "../../hooks/context.hook";
+import ToastUi from "../../components/ui/ToastUi";
 
 function AuthPage() {
 
     // const loc = (window.location.pathname === "/auth/signin")?"Вход":"Регистрация"
     const authContext = useContext(LoginContext)
+    const msgContext = useContext(MessageContext)
     const loc = useLocation()
     const locPath = loc.pathname.split("/")
  
@@ -20,13 +22,7 @@ function AuthPage() {
     const locName = {signin:"Вход", signup:"Регистрация", forgot:"Восстановить пароль"}
     let title = locName[locPath[2]]
 
-    const [toast, setToast] = useState({type:0, message:"", status:false});
 
-    const hideToast = () => {
-        setToast(prew => ({
-            ...prew, status: false
-        }))
-    }
 
     const sendRequest = async () => {
         let bodyData
@@ -55,8 +51,8 @@ function AuthPage() {
         try {
             
             const data = await request(url, 'POST', bodyData)
+            msgContext.showToast(data.message)
             console.log( data.name)
-            setToast({type:0, message:data.message, status:true})
             authContext.login(data.token, data.id, data.name)
         } catch (err) {
             console.log( err)
@@ -110,16 +106,7 @@ function AuthPage() {
             </Modal.Footer>
 
         </Modal>
-        <ToastContainer position="top-end" className="p-3" style={{zIndex:1055}}>
-    <Toast onClose={hideToast} show={toast.status} delay={6000} autohide>
-      <Toast.Header>
-        <FontAwesomeIcon icon={faTriangleExclamation} className="me-2"/>
-        <strong className="me-auto">Сообщение</strong>
-        <small className="text-muted">Прямо сейчас</small>
-      </Toast.Header>
-      <Toast.Body>{toast.message}</Toast.Body>
-    </Toast>
-  </ToastContainer>
+        <ToastUi/>
         </>
     )
 }
